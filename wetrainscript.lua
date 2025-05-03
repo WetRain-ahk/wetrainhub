@@ -50,11 +50,9 @@ local Button = MainTab:CreateButton({
    end,
 })
 
-local Toggle = MainTab:CreateToggle({
-   Name = "aimbot",
-   CurrentValue = false,
-   Flag = "Toggle1", 
-   Callback = function(Value)
+local Button = Tab:CreateButton({
+   Name = "Button Example",
+   Callback = function()
          local fov = 100
 local maxTransparency = 0.1
 local RunService = game:GetService("RunService")
@@ -153,7 +151,7 @@ local Slider = MainTab:CreateSlider({
    Increment = 1,
    Suffix = "Speed",
    CurrentValue = 16,
-   Flag = "sliderws", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "sliderws", 
    Callback = function(Value)
         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
    end,
@@ -165,9 +163,40 @@ local Slider = MainTab:CreateSlider({
    Increment = 1,
    Suffix = "Speed",
    CurrentValue = 16,
-   Flag = "sliderjp", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "sliderjp", 
    Callback = function(Value)
         game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
    end,
 })
 
+local Toggle = Tab:CreateToggle({
+   Name = "noclip",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+         local Noclip = nil
+local Clip = nil
+
+function noclip()
+	Clip = false
+	local function Nocl()
+		if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+			for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
+					v.CanCollide = false
+				end
+			end
+		end
+		wait(0.21) 
+	end
+	Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
+end
+
+function clip()
+	if Noclip then Noclip:Disconnect() end
+	Clip = true
+end
+
+noclip() 
+   end,
+})
