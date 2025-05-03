@@ -53,7 +53,7 @@ local InfYieldButton = MainTab:CreateButton({
 
 -- Aimbot Visual FOV Circle Button
 local AimbotButton = MainTab:CreateButton({
-   Name = "Button Example",
+   Name = "aimbot (cant be turned off)",
    Callback = function()
       local fov = 100
       local maxTransparency = 0.1
@@ -147,7 +147,7 @@ local WalkSpeedSlider = MainTab:CreateSlider({
    end,
 })
 
--- JumpPower Slider
+
 local JumpPowerSlider = MainTab:CreateSlider({
    Name = "JumpPower Slider",
    Range = {1, 350},
@@ -160,7 +160,7 @@ local JumpPowerSlider = MainTab:CreateSlider({
    end,
 })
 
--- Noclip Toggle
+
 local NoclipToggle = MainTab:CreateToggle({
    Name = "noclip",
    CurrentValue = false,
@@ -194,4 +194,6 @@ local NoclipToggle = MainTab:CreateToggle({
          clip()
       end
    end,
+ Clip = false
 })
+
