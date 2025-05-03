@@ -197,3 +197,5 @@ local NoclipToggle = MainTab:CreateToggle({
  Clip = false
 })
 
+local AMTab = Window:CreateTab("Anime Mania", nil
+local Section = AMTab:CreateSection("Anime Mania")
