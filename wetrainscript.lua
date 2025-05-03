@@ -56,21 +56,21 @@ local Toggle = MainTab:CreateToggle({
    Flag = "Toggle1", 
    Callback = function(Value)
          local fov = 100
-local maxTransparency = 0.1 -- TransparÃªncia mÃ¡xima dentro do cÃ­rculo (0.1 = 10% de transparÃªncia)
+local maxTransparency = 0.1
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
-local Teams = game:GetService("Teams") -- Adicione esta linha para acessar os times
+local Teams = game:GetService("Teams") 
 local Cam = game.Workspace.CurrentCamera
 
 local FOVring = Drawing.new("Circle")
 FOVring.Visible = true
 FOVring.Thickness = 2
-FOVring.Color = Color3.fromRGB(128, 0, 128) -- Cor roxa
+FOVring.Color = Color3.fromRGB(128, 0, 128) 
 FOVring.Filled = false
 FOVring.Radius = fov
 FOVring.Position = Cam.ViewportSize / 2
-FOVring.Transparency = 0.1 -- TransparÃªncia inicial igual ao segundo script
+FOVring.Transparency = 0.1 
 
 local function updateDrawings()
     local camViewportSize = Cam.ViewportSize
@@ -93,8 +93,8 @@ local function lookAt(target)
 end
 
 local function calculateTransparency(distance)
-    -- Ajuste a transparÃªncia com base na distÃ¢ncia do centro do cÃ­rculo
-    local maxDistance = fov -- A distÃ¢ncia mÃ¡xima do centro do cÃ­rculo
+    
+    local maxDistance = fov 
     local transparency = (1 - (distance / maxDistance)) * maxTransparency
     return transparency
 end
@@ -113,7 +113,7 @@ local function getClosestPlayerInFOV(trg_part)
                 local ePos, isVisible = Cam:WorldToViewportPoint(part.Position)
                 local distance = (Vector2.new(ePos.x, ePos.y) - playerMousePos).Magnitude
                 
-                -- Adicione uma verificaÃ§Ã£o de equipe aqui
+                
                 if isVisible and distance < fov and player.Team ~= localPlayerTeam then
                     if distance < last then
                         last = distance
@@ -138,13 +138,36 @@ RunService.RenderStepped:Connect(function()
             local distance = (Vector2.new(ePos.x, ePos.y) - (Cam.ViewportSize / 2)).Magnitude
             FOVring.Transparency = calculateTransparency(distance)
         else
-            FOVring.Transparency = 0.1 -- Mantenha completamente visÃ­vel quando nenhum jogador estiver no FOV
+            FOVring.Transparency = 0.1 
         end
     else
-        FOVring.Transparency = 0.1 -- Mantenha completamente visÃ­vel quando nenhum jogador estiver no FOV
+        FOVring.Transparency = 0.1 
     end
 end)
-Toggle:Set(true)
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "WalkSpeed Slider",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderws", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "JumpPower Slider",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderjp", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
    end,
 })
 
