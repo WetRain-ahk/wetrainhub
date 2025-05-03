@@ -27,7 +27,7 @@ local Window = Rayfield:CreateWindow({
       Subtitle = "sowwy",
       Note = "No method of obtaining the key is provided",
       FileName = "wetrainkeysystem",
-      SaveKey = false, 
+      SaveKey = true, 
       GrabKeyFromSite = false, 
       Key = {"WetRainAdminKey3509!"}
    }
